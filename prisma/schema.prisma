@@ -1,0 +1,43 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model User {
+  id       String @id @default(cuid())
+  username String
+  email    String @unique
+  password String
+  meets    Meet[]
+
+  @@map(name: "users")
+}
+
+model Meet {
+  id       String   @id @default(cuid())
+  dateFrom DateTime @db.Date
+  dateTo   DateTime @db.Date
+  title    String
+  guests   Guest[]
+  author   User?    @relation(fields: [authorId], references: [id])
+  authorId String?
+
+  @@map(name: "meets")
+}
+
+model Guest {
+  id            String     @id @default(cuid())
+  username      String
+  meet          Meet?      @relation(fields: [meetId], references: [id])
+  meetId        String?
+  availableDays DateTime[] @db.Date
+
+  @@map(name: "guest")
+}
