@@ -1,6 +1,7 @@
 import {getServerSession, Session} from "next-auth";
 import {authOptions} from "@/app/api/auth/[...nextauth]";
 import Link from "next/link";
+import prisma from "@/lib/prisma";
 
 export default async function LoadMeets() {
 
@@ -10,7 +11,7 @@ export default async function LoadMeets() {
 
     console.log({ userId });
 
-    const meets = await prisma?.meet.findMany({
+    const meets = await prisma.meet.findMany({
         where: {
             authorId: userId,
         },
