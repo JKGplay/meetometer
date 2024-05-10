@@ -1,6 +1,7 @@
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/app/api/auth/[...nextauth]";
 import {redirect} from "next/navigation";
+import prisma from "@/lib/prisma";
 
 export default async function Meet({params}: { params: { meetId: string } }) {
 
@@ -14,7 +15,7 @@ export default async function Meet({params}: { params: { meetId: string } }) {
         redirect('/');
     }
 
-    const meet = await prisma?.meet.findFirst({
+    const meet = await prisma.meet.findFirst({
         where: {
             id: params.meetId,
         }
