@@ -1,7 +1,21 @@
-export default function DashboardPage() {
+import {getServerSession, Session} from "next-auth";
+import {authOptions} from "@/app/api/auth/[...nextauth]";
+import LoadMeets from "@/app/loadMeets";
+
+export default async function DashboardPage() {
+
+    const session: Session | null = await getServerSession(authOptions);
+
+    console.log({session});
+
     return (
         <div>
+            <h1>Your username is {session?.user.username}</h1>
             Private Dashboard Page - you need to be logged in to view this.
+            <div>
+                <h2>Your meets:</h2>
+                <LoadMeets/>
+            </div>
         </div>
     )
 }

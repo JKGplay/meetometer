@@ -11,33 +11,36 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(cuid())
-  username String
-  email    String @unique
-  password String
-  meets    Meet[]
+  id          String        @id @default(cuid())
+  username    String
+  email       String        @unique
+  password    String
+  meets       Meet[]
+  Participant Participant[]
 
   @@map(name: "users")
 }
 
 model Meet {
-  id       String   @id @default(cuid())
-  dateFrom DateTime @db.Date
-  dateTo   DateTime @db.Date
-  title    String
-  guests   Guest[]
-  author   User?    @relation(fields: [authorId], references: [id])
-  authorId String?
+  id           String        @id @default(cuid())
+  title        String
+  description  String
+  dateFrom     DateTime      @db.Date
+  dateTo       DateTime      @db.Date
+  author       User          @relation(fields: [authorId], references: [id])
+  participants Participant[]
+  authorId     String
 
   @@map(name: "meets")
 }
 
-model Guest {
+model Participant {
   id            String     @id @default(cuid())
-  username      String
-  meet          Meet?      @relation(fields: [meetId], references: [id])
-  meetId        String?
+  user          User       @relation(fields: [userId], references: [id])
+  meet          Meet       @relation(fields: [meetId], references: [id])
   availableDays DateTime[] @db.Date
+  userId        String
+  meetId        String
 
-  @@map(name: "guest")
+  @@map(name: "participants")
 }

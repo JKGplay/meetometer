@@ -33,7 +33,7 @@ export default function Form() {
         console.log({res})
 
         if(!res?.error) {
-            router.push('/');
+            router.push('/dashboard');
             router.refresh();
         }
     }
