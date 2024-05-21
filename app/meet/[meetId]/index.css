@@ -1,0 +1,55 @@
+.yellow {
+    background: yellow !important;
+    color: black !important;
+}
+
+.green {
+    background: green !important;
+    color: white !important;
+}
+
+.red {
+    background: red !important;
+    color: white !important;
+}
+
+.purple {
+    background: purple !important;
+    color: white !important;
+}
+
+.blue {
+    background: cornflowerblue !important;
+    color: white !important;
+}
+
+.orange {
+    background: orange !important;
+    color: white !important;
+}
+
+.brown {
+    background: saddlebrown !important;
+    color: white !important;
+}
+
+.event-container {
+    padding: 2px 16px !important;
+    border-radius: 20px !important;
+}
+
+.rbc-event {
+    padding: 0 !important;
+    font-size: 20px !important;
+    border-radius: 20px !important;
+    border: 1px black solid !important;
+}
+
+.rbc-event-label {
+    display: none !important;
+}
+
+.available-day {
+    background-color: lightgreen !important;
+    /*border: 2px solid black;*/
+}

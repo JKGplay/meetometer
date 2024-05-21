@@ -17,6 +17,8 @@ export async function POST(request: NextRequest) {
     }
     console.log({ data });
 
+    console.log('dateFrom', data.dateFrom)
+
     const response = await prisma.meet.create({
         data: {
             title: data.title,

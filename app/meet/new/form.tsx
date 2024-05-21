@@ -28,12 +28,15 @@ export default function Form({ userId }: { userId: string }) {
         [dateFrom[0], dateFrom[1]] = [dateFrom[1], dateFrom[0]];
         dateFrom = dateFrom.join(".");
         dateFrom = new Date(dateFrom);
+        const offset = dateFrom.getTimezoneOffset();
+        dateFrom.setMinutes(dateFrom.getMinutes() - offset);
 
         let dateTo: any = dateRange.split(" ")[2];
         dateTo = dateTo.split(".");
         [dateTo[0], dateTo[1]] = [dateTo[1], dateTo[0]];
         dateTo = dateTo.join(".");
         dateTo = new Date(dateTo);
+        dateTo.setMinutes(dateTo.getMinutes() - offset);
 
         console.log({userId})
 

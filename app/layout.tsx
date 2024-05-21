@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
-import Logout from "@/app/logout";
+import Logout from "@/components/logout";
 import {authOptions} from "@/app/api/auth/[...nextauth]";
 
 const inter = Inter({ subsets: ["latin"] });

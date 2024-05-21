@@ -1,6 +1,6 @@
 import {getServerSession, Session} from "next-auth";
 import {authOptions} from "@/app/api/auth/[...nextauth]";
-import LoadMeets from "@/app/loadMeets";
+import LoadMeets from "@/components/loadMeets";
 
 export default async function DashboardPage() {
 
