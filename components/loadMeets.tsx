@@ -13,7 +13,14 @@ export default async function LoadMeets() {
 
     const meets = await prisma.meet.findMany({
         where: {
-            authorId: userId,
+            OR: [
+                { authorId: userId, },
+                {participants: {
+                    some: {
+                        userId: userId,
+                    },
+                }},
+            ],
         },
     });
 
