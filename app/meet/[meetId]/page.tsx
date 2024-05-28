@@ -4,9 +4,7 @@ import {redirect} from "next/navigation";
 import prisma from "@/lib/prisma";
 import weekdays from "@/lib/weekdays";
 import LoadCalendar from "@/components/loadCalendar";
-import moment from "moment";
 import '@/app/meet/[meetId]/index.css'
-import AddAvailabilityButton from "@/components/addAvailability";
 
 export default async function Meet({params}: { params: { meetId: string } }) {
 
@@ -43,8 +41,8 @@ export default async function Meet({params}: { params: { meetId: string } }) {
         }
     })
 
-    console.log({meet})
-    console.log(meet?.participants)
+    // console.log({meet})
+    // console.log(meet?.participants)
 
     if (!meet) {
         console.log("meet not found");
@@ -67,9 +65,9 @@ export default async function Meet({params}: { params: { meetId: string } }) {
 
             <p>{`Od: ${formattedDate(meet.dateFrom)}`}</p>
             <p>{`Od: ${formattedDate(meet.dateTo)}`}</p>
-            <AddAvailabilityButton/>
             <LoadCalendar
                 meet={meet}
+                user={session.user}
             />
         </div>
     )

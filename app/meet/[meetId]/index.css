@@ -33,6 +33,37 @@
     color: white !important;
 }
 
+.temp-day {
+    background: linear-gradient(90deg, black 50%, transparent 50%),
+                linear-gradient(90deg, black 50%, transparent 50%),
+                linear-gradient(0deg, black 50%, transparent 50%),
+                linear-gradient(0deg, black 50%, transparent 50%);
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    background-size: 16px 2px, 16px 2px, 4px 16px, 4px 16px;
+    background-position: 0% 0%, 100% 100%, 0% 100%, 100% 0px;
+    border-radius: 20px;
+    padding: 10px;
+    animation: dash 5s linear infinite;
+    background-color: #d0fe1d;
+    color: black;
+    transition: 0.2s ease-out;
+}
+
+.btn-change {
+    background-color: #61e861;
+}
+
+.temp-day:hover {
+    background-color: #e84030;
+    transition: 0.2s ease-out;
+}
+
+@keyframes dash {
+    to {
+        background-position: 100% 0%, 0% 100%, 0% 0%, 100% 100%;
+    }
+}
+
 .event-container {
     padding: 2px 16px !important;
     border-radius: 20px !important;
@@ -52,4 +83,8 @@
 .available-day {
     background-color: lightgreen !important;
     /*border: 2px solid black;*/
+}
+
+.today-available-day {
+    background-color: #61e861 !important;
 }
