@@ -6,7 +6,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css"
 import '@/app/meet/[meetId]/index.css'
 import {useCallback, useState} from "react";
 import colors from "@/lib/colors";
-import {useRouter} from "next/navigation";
+import Image from "next/image";
 
 const localizer = momentLocalizer(moment);
 
@@ -16,11 +16,11 @@ export default function LoadCalendar(params: any) {
     const [view, setView] = useState(Views.MONTH);
     const [date, setDate] = useState(meet.dateFrom);
     const [clicked, setClicked] = useState(false);
+    const [loading, setLoading] = useState(false);
     const alreadyAvailable: any[] = [];
     let currentUserColor = colors[0];
     const participants: Object[] = [];
     const offset = new Date().getTimezoneOffset() * 60 * 1000;
-    const router = useRouter();
 
     meet.participants.forEach((participant: any, participantIndex: number) => {
         if (participant.user.username === user.username) {
@@ -131,7 +131,8 @@ export default function LoadCalendar(params: any) {
             })
             console.log(toChange)
             if (alreadyAvailable !== toChange) {
-                const daysToSend: any[] = [];
+                setLoading(true);
+                let daysToSend: any[] = [];
                 for (const event of toChange) {
                     console.log(event.end.getTime() - event.start.getTime())
                     if (event.end.getTime() - event.start.getTime() === 1) {
@@ -152,6 +153,21 @@ export default function LoadCalendar(params: any) {
                 console.log(daysToSend)
                 console.log(daysToSend[0].getTime())
                 daysToSend.sort((a, b) => a.getTime() - b.getTime());
+                console.log(daysToSend)
+
+                let epoch: number[] = [];
+
+                daysToSend.forEach((day: any) => {
+                    epoch.push(day.getTime());
+                });
+                console.log(epoch)
+                epoch = Array.from(new Set(epoch));
+                console.log(epoch)
+                daysToSend = [];
+                epoch.forEach((day: any) => {
+                    daysToSend.push(new Date(day));
+                })
+                console.log(daysToSend)
                 try {
                     const body = {
                         daysToSend,
@@ -166,7 +182,7 @@ export default function LoadCalendar(params: any) {
 
                     // const res = await response.json();
                     if (response.status === 200) {
-                        router.refresh();
+                        window.location.reload();
                     }
                 } catch (e) {
                     console.error(e);
@@ -179,10 +195,17 @@ export default function LoadCalendar(params: any) {
     return (
         <div className="h-[80vh]">
             <button
-                className={`p-1 m-1 border border-black ${clicked ? "btn-change" : ""}`}
+                className={`flex flex-row gap-3 p-1 m-1 border border-black ${clicked ? "btn-change" : ""}`}
                 onClick={handleAvailability}
             >
-                Change availability
+                <p>Change availability</p>
+                <Image
+                    className={`rotate align-middle ${loading ? '' : 'hidden'}`}
+                    src='/spinner.svg'
+                    height={24}
+                    width={24}
+                    alt="loading"
+                />
             </button>
             <Calendar
                 localizer={localizer}
