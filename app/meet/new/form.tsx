@@ -38,8 +38,6 @@ export default function Form({ userId }: { userId: string }) {
         dateTo = new Date(dateTo);
         dateTo.setMinutes(dateTo.getMinutes() - offset);
 
-        console.log({userId})
-
         try {
             const body = { title, description, dateFrom, dateTo, userId};
             const response = await fetch('/api/meet', {

@@ -6,8 +6,6 @@ export default async function DashboardPage() {
 
     const session: Session | null = await getServerSession(authOptions);
 
-    console.log({session});
-
     return (
         <div>
             <h1>Your username is {session?.user.username}</h1>

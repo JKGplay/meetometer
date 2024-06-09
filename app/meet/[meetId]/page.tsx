@@ -14,7 +14,6 @@ export default async function Meet({params}: { params: { meetId: string } }) {
     const guest: boolean = false;
 
     if (!session) {
-        console.log("session not found");
         redirect('/');
     }
 
@@ -41,11 +40,7 @@ export default async function Meet({params}: { params: { meetId: string } }) {
         }
     })
 
-    // console.log({meet})
-    // console.log(meet?.participants)
-
     if (!meet) {
-        console.log("meet not found");
         redirect('/dashboard');
     }
 
@@ -60,7 +55,7 @@ export default async function Meet({params}: { params: { meetId: string } }) {
     }
 
     return (
-        <div>
+        <div className="h-[95vh]">
             <h1>{meet.title}</h1>
 
             <p>{`Od: ${formattedDate(meet.dateFrom)}`}</p>

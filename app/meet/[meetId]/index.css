@@ -88,3 +88,9 @@
 .today-available-day {
     background-color: #61e861 !important;
 }
+
+.rbc-month-row {
+    display: inline-table !important;
+    flex: 0 0 0 !important;
+    min-height: 10vh !important;
+}

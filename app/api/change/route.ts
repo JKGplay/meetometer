@@ -12,7 +12,6 @@ export async function POST(request: NextRequest) {
     if (data.userId !== session.user.id) {
         return NextResponse.json({ error: 'Your session is different from request' }, { status: 421 });
     }
-
     const req = await prisma.participant.findFirst({
         where: {
             AND: [

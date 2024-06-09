@@ -9,8 +9,6 @@ export default async function LoadMeets() {
 
     const userId = session?.user.id;
 
-    console.log({ userId });
-
     const meets = await prisma.meet.findMany({
         where: {
             OR: [
@@ -31,8 +29,6 @@ export default async function LoadMeets() {
 
         return `${day}.${month}.${year}`;
     }
-
-    console.log({ meets });
 
     return (
         <div

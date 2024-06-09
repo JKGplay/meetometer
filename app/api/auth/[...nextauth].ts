@@ -21,33 +21,22 @@ export const authOptions: NextAuthOptions = {
 
                 //validation
 
-                console.log('email ', credentials?.email)
-                console.log('password ', credentials?.password)
-
                 const users = await prisma.user.findMany({
                     where: {
                         email: credentials?.email,
                     }
                 })
-                console.log({users})
+
                 const checkedUser = users[0]
                 const isPasswordCorrect = await compare(credentials?.password || '', checkedUser.password)
 
-                console.log({isPasswordCorrect})
-
                 if (isPasswordCorrect) {
-                    const user = {
-                        id: checkedUser.id,
-                        username: checkedUser.username,
-                    }
-                    console.log({user});
                     return {
                         id: checkedUser.id,
                         username: checkedUser.username,
                     };
                 }
 
-                console.log({ credentials });
                 return null;
             }
         })

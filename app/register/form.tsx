@@ -22,15 +22,12 @@ export default function Form() {
                 password:   formData.get('password'),
             }),
         })
-        console.log({ response });
 
         const res = await signIn('credentials', {
             email:      formData.get('email'),
             password:   formData.get('password'),
             redirect:   false,
         });
-
-        console.log({res})
 
         if(!res?.error) {
             router.push('/dashboard');

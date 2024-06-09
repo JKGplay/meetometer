@@ -19,27 +19,25 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getServerSession(authOptions);
-  console.log('layout.tsx', { session })
   return (
     <html lang="en">
       <body className={inter.className}>
-        <nav>
+        <nav className="h-[5vh]">
           {!!session &&
             <div className="flex items-center p-2">
-              <Logout className="p-1 m-1 border"/>
+              <Logout className="p-1 mx-1 border"/>
               <Link
-                className="p-1 m-1 border"
+                className="p-1 mx-1 border"
                 href="/meet/new"
               >
                 Make new Meet
               </Link>
             </div>
-
           }
           {!session &&
             <div className="flex items-center p-2">
               <Link
-                className="p-1 m-1 border"
+                className="p-1 mx-1 border"
                 href="/login"
               >
                 Login

@@ -20,11 +20,14 @@ export default function Form() {
             redirect:   false,
         });
 
-        console.log({response})
-
         if(!response?.error) {
             router.push('/dashboard');
             router.refresh();
+        }
+
+        if (response?.error) {
+            alert("Wrong Credentials");
+            window.location.reload();
         }
     }
 

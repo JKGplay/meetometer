@@ -7,7 +7,6 @@ export async function POST(request: Request) {
         const res = await request.json();
         const {username, email, password} = res;
         //validation
-        console.log({ username, email, password });
 
         const hashedPassword = await hash(password, 10);
 

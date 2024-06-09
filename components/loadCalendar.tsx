@@ -56,23 +56,8 @@ export default function LoadCalendar(params: any) {
     const components = {
         event:(props: any) => {
             const theme = props?.event?.color;
-            // console.log("props", props);
             return <div className={`event-container ${theme}`}>{props?.event?.title}</div>
         }
-    }
-
-    const customDayPropGetter = (date: Date) => {
-        if (date.getTime() - offset >= meet.dateFrom && date.getTime() - offset <= meet.dateTo) {
-            if (date.getDate() === new Date().getDate()) {
-                return {
-                    className: `today-available-day`,
-                }
-            }
-            return {
-                className: `available-day`,
-            }
-        }
-        return {}
     }
 
     const handleSelectSlot = useCallback(
@@ -129,12 +114,10 @@ export default function LoadCalendar(params: any) {
                     toChange.push(event);
                 }
             })
-            console.log(toChange)
             if (alreadyAvailable !== toChange) {
                 setLoading(true);
                 let daysToSend: any[] = [];
                 for (const event of toChange) {
-                    console.log(event.end.getTime() - event.start.getTime())
                     if (event.end.getTime() - event.start.getTime() === 1) {
                         daysToSend.push(new Date(event.start.getTime() - offset));
                         continue;
@@ -150,24 +133,18 @@ export default function LoadCalendar(params: any) {
                         }
                     }
                 }
-                console.log(daysToSend)
-                console.log(daysToSend[0].getTime())
                 daysToSend.sort((a, b) => a.getTime() - b.getTime());
-                console.log(daysToSend)
 
                 let epoch: number[] = [];
 
                 daysToSend.forEach((day: any) => {
                     epoch.push(day.getTime());
                 });
-                console.log(epoch)
                 epoch = Array.from(new Set(epoch));
-                console.log(epoch)
                 daysToSend = [];
                 epoch.forEach((day: any) => {
                     daysToSend.push(new Date(day));
                 })
-                console.log(daysToSend)
                 try {
                     const body = {
                         daysToSend,
@@ -192,10 +169,24 @@ export default function LoadCalendar(params: any) {
         setClicked(tempClicked);
     }
 
+    const customDayPropGetter = (date: Date) => {
+        if (date.getTime() - offset >= meet.dateFrom && date.getTime() - offset <= meet.dateTo) {
+            if (date.getDate() === new Date().getDate()) {
+                return {
+                    className: `today-available-day`,
+                }
+            }
+            return {
+                className: `available-day`,
+            }
+        }
+        return {}
+    }
+
     return (
-        <div className="h-[80vh]">
+        <div className={`h-[80vh]`}>
             <button
-                className={`flex flex-row gap-3 p-1 m-1 border border-black ${clicked ? "btn-change" : ""}`}
+                className={`flex flex-row gap-3 p-1 mx-1 border border-black ${clicked ? "btn-change" : ""}`}
                 onClick={handleAvailability}
             >
                 <p>Change availability</p>
@@ -214,7 +205,7 @@ export default function LoadCalendar(params: any) {
                 view={view}
                 defaultView={view}
                 views={['month']}
-                showAllEvents={true}
+                showAllEvents
                 date={date}
                 components={components}
                 selectable

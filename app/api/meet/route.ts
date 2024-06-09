@@ -10,14 +10,9 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'There is no session' }, { status: 420 });
     }
     const data = await request.json();
-    console.log('data', data.userId);
-    console.log('session', session.user.id);
     if(data.userId !== session.user.id) {
         return NextResponse.json({ error: 'Your session is different from request' }, { status: 421 });
     }
-    console.log({ data });
-
-    console.log('dateFrom', data.dateFrom)
 
     const response = await prisma.meet.create({
         data: {
@@ -35,8 +30,6 @@ export async function POST(request: NextRequest) {
     if(!response) {
         return NextResponse.json({ error: 'Error with database' }, { status: 422 });
     }
-
-    console.log({ response });
 
     return NextResponse.json({ message: 'Meet successfully created', meetId: response.id }, { status: 200 });
 }
