@@ -82,7 +82,6 @@
 
 .available-day {
     background-color: lightgreen !important;
-    /*border: 2px solid black;*/
 }
 
 .today-available-day {
@@ -93,4 +92,11 @@
     display: inline-table !important;
     flex: 0 0 0 !important;
     min-height: 10vh !important;
+    padding: 5px 0 !important;
+    border-top: 0 !important;
+    border-bottom: black 1px solid !important;
+}
+
+.rbc-button-link {
+    font-weight: bold !important;
 }
