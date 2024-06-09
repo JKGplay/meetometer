@@ -183,8 +183,6 @@ export default function LoadCalendar(params: any) {
         return {}
     }
 
-    //TODO: dodać przycisk, który wypisuje dni, w których każdemu pasuje
-
     return (
         <div className={`h-[80vh]`}>
             <button
